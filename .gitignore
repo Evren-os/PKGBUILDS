@@ -1,0 +1,8 @@
+*.pkg.tar.zst
+*.pkg.tar.xz
+*.pkg.tar.gz
+*.src.tar.gz
+pkg/
+src/
+*.log
+*.pkg.tar.zst.old
