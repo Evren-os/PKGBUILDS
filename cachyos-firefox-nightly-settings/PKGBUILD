@@ -5,7 +5,6 @@ pkgrel=1
 pkgdesc='CachyOS settings for Firefox Nightly'
 depends=('firefox-nightly' 'xdg-desktop-portal-impl')
 arch=('any')
-license=(GPL-3.0-or-later)
 backup=('etc/firefox/policies/policies.json')
 url="https://github.com/CachyOS/CachyOS-PKGBUILDS/tree/master/cachyos-firefox-settings"
 conflicts=(firefox-settings)
