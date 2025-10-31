@@ -1,0 +1,18 @@
+pkgbase = cachyos-firefox-nightly-settings
+	pkgdesc = CachyOS settings for Firefox Nightly
+	pkgver = 20251031
+	pkgrel = 1
+	url = https://github.com/CachyOS/CachyOS-PKGBUILDS/tree/master/cachyos-firefox-settings
+	arch = any
+	license = GPL-3.0-or-later
+	depends = firefox-nightly
+	depends = xdg-desktop-portal-impl
+	provides = firefox-settings
+	conflicts = firefox-settings
+	backup = etc/firefox/policies/policies.json
+	source = cachyos.js
+	source = policies.json
+	sha256sums = ed4752c5b7957452228b3198694ef70b8a48b4f25826fa8840e36f76f0f9973e
+	sha256sums = 4e362c54d2891a80b605ae1996205c7d66ba971a54a038b2f261c7d263094a81
+
+pkgname = cachyos-firefox-nightly-settings

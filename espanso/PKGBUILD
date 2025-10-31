@@ -1,0 +1,59 @@
+# Maintainer: Evrenos <evrnos@proton.me>
+
+pkgname=espanso-wayland
+_pkgbase=espanso
+pkgver=2.3.0
+pkgrel=1
+pkgdesc="Cross-platform Text Expander written in Rust (built for Wayland with local optimizations)"
+arch=(x86_64)
+url="https://github.com/espanso/espanso"
+license=(GPL-3.0-only)
+provides=(espanso)
+conflicts=(espanso espanso-x11)
+install=espanso-wayland.install
+makedepends=(
+  cargo
+  rust
+)
+depends=(
+  dbus
+  gcc-libs
+  libxkbcommon
+  openssl
+  wl-clipboard
+  wxwidgets-gtk3
+)
+
+options=(!lto)
+source=(
+  "$url/archive/v$pkgver/$_pkgbase-$pkgver.tar.gz"
+)
+sha256sums=('32b315a813114b28ef3ee74c5d2ce0bfc2f75a0bd9a4141c7465cd0b00fdf34c')
+
+prepare() {
+  cd "$_pkgbase-$pkgver"
+  sed 's|{{{espanso_path}}}|/usr/bin/espanso|g' espanso/src/res/linux/systemd.service > espanso.service
+  sed 's/Icon=icon/Icon=espanso/g' espanso/src/res/linux/espanso.desktop > espanso.desktop
+}
+
+build() {
+  cd "$_pkgbase-$pkgver"
+
+  export CARGO_TARGET_DIR="target-wayland"
+
+  cargo build --frozen --release \
+    --features wayland \
+    --manifest-path espanso/Cargo.toml \
+    --package espanso
+}
+
+package() {
+  cd "$_pkgbase-$pkgver"
+
+  install -vDm755 -t "$pkgdir/usr/bin" "target-wayland/release/espanso"
+
+  install -vDm644 -t "$pkgdir/usr/lib/systemd/user" "espanso.service"
+  install -vDm644 -t "$pkgdir/usr/share/applications" "espanso.desktop"
+  install -vDm644 -t "$pkgdir/usr/share/doc/espanso" ./*.md
+  install -vDm644 "espanso/src/res/linux/icon.png" "$pkgdir/usr/share/pixmaps/espanso.png"
+}
