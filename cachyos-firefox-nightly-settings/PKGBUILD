@@ -1,13 +1,12 @@
 # Maintainer: Evrenos <evrnos@proton.me>
 pkgname=cachyos-firefox-nightly-settings
-pkgver=20251031
+pkgver=20251102
 pkgrel=1
 pkgdesc='CachyOS settings for Firefox Nightly'
 depends=('firefox-nightly' 'xdg-desktop-portal-impl')
 arch=('any')
 backup=('etc/firefox/policies/policies.json')
 url="https://github.com/CachyOS/CachyOS-PKGBUILDS/tree/master/cachyos-firefox-settings"
-conflicts=(firefox-settings)
 provides=(firefox-settings)
 source=(
     cachyos.js
