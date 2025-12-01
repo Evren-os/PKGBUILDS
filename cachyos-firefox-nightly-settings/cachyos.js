@@ -26,8 +26,6 @@ pref("layers.gpu-process.enabled", true); // Use dedicated GPU process
 
 // JavaScript & Process Tweaks
 pref("dom.ipc.forkserver.enable", true); // Enable Linux fork server for new processes
-pref("javascript.options.baselinejit.threshold", 50); // Lower JIT threshold
-pref("javascript.options.ion.threshold", 500); // Lower Ion threshold
 
 // Memory & Cache Tweaks (Non-Disk)
 pref("image.cache.size", 10485760); // Increase decoded image cache size (10MB)
@@ -260,7 +258,6 @@ pref("network.http.pacing.requests.enabled", false); //Disable pacing requests
 
 // Privacy hardening
 pref("browser.contentblocking.category", "strict"); // https://blog.mozilla.org/security/2021/02/23/total-cookie-protection/
-pref("browser.download.autohideButton", false, locked); //do not hide download button automatically
 pref("browser.download.start_downloads_in_tmp_dir", true, locked); //start downloads in temp
 pref("dom.security.https_only_mode", true, locked); // only allow https in all windows, including private browsing
 pref("network.predictor.enable-prefetch", false); // Disable speculative website loading

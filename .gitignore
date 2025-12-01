@@ -3,6 +3,7 @@
 *.pkg.tar.gz
 *.src.tar.gz
 *.tar.gz
+*.tar.xz
 pkg/
 src/
 *.log
