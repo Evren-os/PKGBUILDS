@@ -28,7 +28,6 @@ pref("layers.gpu-process.enabled", true); // Use dedicated GPU process
 pref("dom.ipc.forkserver.enable", true); // Enable Linux fork server for new processes
 
 // Memory & Cache Tweaks (Non-Disk)
-pref("image.cache.size", 10485760); // Increase decoded image cache size (10MB)
 pref("image.mem.decode_bytes_at_a_time", 65536); // Increase image decode chunk size
 pref("image.mem.shared.unmap.min_expiration_ms", 120000);
 pref("media.cache_readahead_limit", 7200); // Increase media readahead

@@ -1,5 +1,5 @@
 # Maintainer: Evrenos <evrnos@proton.me>
-pkgname=cachyos-firefox-nightly-settings
+pkgname=firefox-nightly-settings
 pkgver=20251123
 pkgrel=1
 pkgdesc='CachyOS settings for Firefox Nightly'
@@ -12,7 +12,7 @@ source=(
     cachyos.js
     policies.json
 )
-sha256sums=('18b13eef6715074e0da31bea8386b4744bcb2e2ace08f4e07aa80d9a38615c83'
+sha256sums=('2d00cac253942c992c79a3affedfbb8a3439f7bc06f6552771265febb24f39ab'
             '4e362c54d2891a80b605ae1996205c7d66ba971a54a038b2f261c7d263094a81')
 
 pkgver() {
