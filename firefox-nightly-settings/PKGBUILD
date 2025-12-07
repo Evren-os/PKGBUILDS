@@ -12,7 +12,7 @@ source=(
     cachyos.js
     policies.json
 )
-sha256sums=('2d00cac253942c992c79a3affedfbb8a3439f7bc06f6552771265febb24f39ab'
+sha256sums=('8be90524dedd526cd7964570ac5870589c828248fddc201cee461bf70fcc05b2'
             '4e362c54d2891a80b605ae1996205c7d66ba971a54a038b2f261c7d263094a81')
 
 pkgver() {
