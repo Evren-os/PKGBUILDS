@@ -1,6 +1,6 @@
 pkgbase = firefox-nightly-settings
 	pkgdesc = CachyOS settings for Firefox Nightly
-	pkgver = 20251123
+	pkgver = 20260125
 	pkgrel = 1
 	url = https://github.com/CachyOS/CachyOS-PKGBUILDS/tree/master/cachyos-firefox-settings
 	arch = any
