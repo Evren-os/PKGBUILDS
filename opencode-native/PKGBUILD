@@ -1,0 +1,41 @@
+# Maintainer: evrenos
+
+pkgname='opencode-native'
+pkgver=1.1.48
+pkgrel=1
+pkgdesc='The AI coding agent built for the terminal'
+arch=('x86_64')
+url='https://github.com/anomalyco/opencode'
+license=('MIT')
+
+provides=('opencode')
+conflicts=('opencode' 'opencode-bin' 'opencode-git')
+depends=('ripgrep')
+makedepends=('git' 'bun' 'go')
+options=('!debug' '!strip')
+
+source=("opencode-${pkgver}.tar.gz::https://github.com/anomalyco/opencode/archive/v${pkgver}.tar.gz")
+sha256sums=('10e88ad3eca718a68ecabf6825be446af576e74bc92e72c6246e15d424ce9836')
+
+build() {
+    cd "opencode-${pkgver}"
+    export GOAMD64=v3
+    export CGO_ENABLED=0
+    export CFLAGS="${CFLAGS:--march=native -O3 -pipe -fno-plt}"
+    export CXXFLAGS="${CXXFLAGS:--march=native -O3 -pipe -fno-plt}"
+    export LDFLAGS="${LDFLAGS:--Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now}"
+    export CGO_CFLAGS="${CFLAGS}"
+    export CGO_CXXFLAGS="${CXXFLAGS}"
+    export CGO_LDFLAGS="${LDFLAGS}"
+    bun install
+    cd ./packages/opencode
+    OPENCODE_CHANNEL=latest \
+    OPENCODE_VERSION="${pkgver}" \
+    bun run ./script/build.ts --single
+}
+
+package() {
+    cd "opencode-${pkgver}/packages/opencode"
+    install -Dm755 "dist/opencode-linux-x64/bin/opencode" "${pkgdir}/usr/bin/opencode"
+    install -Dm644 "${srcdir}/opencode-${pkgver}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
