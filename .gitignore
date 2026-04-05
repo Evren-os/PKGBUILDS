@@ -9,3 +9,4 @@ src/
 *.log
 *.pkg.tar.zst.old
 update.sh
+opencode/
