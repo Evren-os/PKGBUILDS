@@ -129,6 +129,10 @@ package() {
   install -d "$pkgdir/usr/lib/enteauth"
   cp -a "${_bundle_dir}/." "$pkgdir/usr/lib/enteauth/"
 
+  if ! patchelf --print-needed "$pkgdir/usr/lib/enteauth/lib/libflutter_linux_gtk.so" | grep -Fxq 'libsodium.so'; then
+    patchelf --add-needed libsodium.so "$pkgdir/usr/lib/enteauth/lib/libflutter_linux_gtk.so"
+  fi
+
   local _so _rpath
   for _so in "$pkgdir/usr/lib/enteauth/lib/"*.so; do
     _rpath="$(patchelf --print-rpath "$_so" 2>/dev/null || true)"
