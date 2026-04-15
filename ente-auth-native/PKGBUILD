@@ -1,0 +1,151 @@
+pkgname=ente-auth
+pkgver=4.4.19
+pkgrel=1
+pkgdesc='Two-factor authenticator with end-to-end encrypted backups'
+arch=('x86_64')
+url='https://ente.com/auth'
+license=('AGPL-3.0-only')
+depends=(
+  'gtk3'
+  'hicolor-icon-theme'
+  'libayatana-appindicator'
+  'libsecret'
+  'libsodium'
+  'org.freedesktop.secrets'
+  'sqlite'
+)
+makedepends=(
+  'clang'
+  'cmake'
+  'jdk17-openjdk'
+  'ninja'
+  'patchelf'
+)
+checkdepends=(
+  'appstream'
+  'desktop-file-utils'
+)
+optdepends=(
+  'zenity: required for file import dialogs'
+)
+conflicts=(
+  'ente-auth-bin'
+  'ente-auth-git'
+)
+
+_tag="auth-v${pkgver}"
+_srcname="ente-${_tag}"
+_flutter_version='3.32.8'
+_simple_icons_commit='6dcfdc2f58f6150d7b097b5cab158d27413f6366'
+
+source=(
+  "${_srcname}.tar.gz::https://github.com/ente-io/ente/archive/refs/tags/${_tag}.tar.gz"
+  "simple-icons-${_simple_icons_commit}.tar.gz::https://github.com/simple-icons/simple-icons/archive/${_simple_icons_commit}.tar.gz"
+  "flutter-linux-${_flutter_version}.tar.xz::https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${_flutter_version}-stable.tar.xz"
+)
+sha256sums=(
+  '4429c54cff4dd6eb9325ac10b0234edf99bf034d4f6fec4f1b77b6f2bce1158e'
+  '901ba4889b0c983e28e68ee241f94801cb0179a16536c0ee5b158773385ace82'
+  'c2c7d75f9be53f10f3fdba2f7e042b2ef0852cc088392b374bcec34c6204ed8c'
+)
+
+prepare() {
+  cd "$srcdir/${_srcname}"
+
+  rm -rf mobile/apps/auth/assets/simple-icons
+  install -d mobile/apps/auth/assets/simple-icons
+  cp -a "$srcdir/simple-icons-${_simple_icons_commit}/." \
+    mobile/apps/auth/assets/simple-icons/
+
+  export FLUTTER_ROOT="$srcdir/flutter"
+  export JAVA_HOME='/usr/lib/jvm/java-17-openjdk'
+  export HOME="$srcdir/home"
+  export PUB_CACHE="$srcdir/pub-cache"
+  export XDG_CACHE_HOME="$srcdir/cache"
+  export PATH="$FLUTTER_ROOT/bin:$PUB_CACHE/bin:$PATH"
+  export SOURCE_DATE_EPOCH="$(date -u -d '2026-03-30 00:00:00 UTC' +%s)"
+
+  install -d "$HOME" "$PUB_CACHE" "$XDG_CACHE_HOME"
+
+  flutter config --no-analytics --enable-linux-desktop
+  dart --disable-analytics
+
+  cd "$srcdir/${_srcname}/mobile/packages/strings"
+  flutter gen-l10n
+
+  cd "$srcdir/${_srcname}/mobile/apps/auth"
+  flutter clean
+  flutter pub get --enforce-lockfile
+
+  sed -i 's#<id>enteauth</id>#<id>io.ente.auth.desktop</id>#' \
+    linux/packaging/enteauth.appdata.xml
+  sed -i 's#>enteauth.desktop<#>io.ente.auth.desktop<#' \
+    linux/packaging/enteauth.appdata.xml
+  sed -i '/<provides>/,/<\/provides>/d' linux/packaging/enteauth.appdata.xml
+
+  local _release_date
+  _release_date="$(date -u -d "@$SOURCE_DATE_EPOCH" +%F)"
+
+  if ! grep -Fq "version=\"${pkgver}\"" linux/packaging/enteauth.appdata.xml; then
+    sed -i "/<releases>/a\\        <release version=\"${pkgver}\" date=\"${_release_date}\" />" \
+      linux/packaging/enteauth.appdata.xml
+  fi
+}
+
+build() {
+  cd "$srcdir/${_srcname}/mobile/apps/auth"
+
+  export FLUTTER_ROOT="$srcdir/flutter"
+  export JAVA_HOME='/usr/lib/jvm/java-17-openjdk'
+  export HOME="$srcdir/home"
+  export PUB_CACHE="$srcdir/pub-cache"
+  export XDG_CACHE_HOME="$srcdir/cache"
+  export PATH="$FLUTTER_ROOT/bin:$PUB_CACHE/bin:$PATH"
+  export SOURCE_DATE_EPOCH="$(date -u -d '2026-03-30 00:00:00 UTC' +%s)"
+
+  export CFLAGS="${CFLAGS//-march=native/}"
+  export CFLAGS="${CFLAGS//-mtune=native/}"
+  export CXXFLAGS="${CXXFLAGS//-march=native/}"
+  export CXXFLAGS="${CXXFLAGS//-mtune=native/}"
+  export CFLAGS+=" -march=znver3 -mtune=znver3"
+  export CXXFLAGS+=" -march=znver3 -mtune=znver3 -Wno-error=deprecated-declarations -Wno-error=deprecated-literal-operator"
+
+  flutter build linux --release
+}
+
+check() {
+  cd "$srcdir/${_srcname}/mobile/apps/auth"
+  desktop-file-validate linux/packaging/enteauth.desktop
+  appstreamcli validate --no-net linux/packaging/enteauth.appdata.xml
+}
+
+package() {
+  cd "$srcdir/${_srcname}/mobile/apps/auth"
+
+  local _bundle_dir='build/linux/x64/release/bundle'
+
+  install -d "$pkgdir/usr/lib/enteauth"
+  cp -a "${_bundle_dir}/." "$pkgdir/usr/lib/enteauth/"
+
+  local _so _rpath
+  for _so in "$pkgdir/usr/lib/enteauth/lib/"*.so; do
+    _rpath="$(patchelf --print-rpath "$_so" 2>/dev/null || true)"
+    if [[ "$_rpath" == *"$srcdir"* ]]; then
+      patchelf --set-rpath '$ORIGIN' "$_so"
+    fi
+  done
+
+  install -d "$pkgdir/usr/bin"
+  ln -s /usr/lib/enteauth/enteauth "$pkgdir/usr/bin/enteauth"
+
+  install -Dm644 assets/generation-icons/icon-windows-linux.png \
+    "$pkgdir/usr/share/icons/hicolor/256x256/apps/io.ente.auth.png"
+  install -Dm644 assets/generation-icons/icon-windows-linux.png \
+    "$pkgdir/usr/share/pixmaps/io.ente.auth.png"
+  install -Dm644 linux/packaging/enteauth.desktop \
+    "$pkgdir/usr/share/applications/io.ente.auth.desktop"
+  install -Dm644 linux/packaging/enteauth.appdata.xml \
+    "$pkgdir/usr/share/metainfo/io.ente.auth.metainfo.xml"
+  install -Dm644 "$srcdir/${_srcname}/LICENSE" \
+    "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
