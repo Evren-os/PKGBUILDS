@@ -1,6 +1,6 @@
 pkgbase = firefox-nightly-settings
 	pkgdesc = CachyOS settings for Firefox Nightly
-	pkgver = 20260125
+	pkgver = 20260416
 	pkgrel = 1
 	url = https://github.com/CachyOS/CachyOS-PKGBUILDS/tree/master/cachyos-firefox-settings
 	arch = any
@@ -10,7 +10,7 @@ pkgbase = firefox-nightly-settings
 	backup = etc/firefox/policies/policies.json
 	source = cachyos.js
 	source = policies.json
-	sha256sums = 8be90524dedd526cd7964570ac5870589c828248fddc201cee461bf70fcc05b2
-	sha256sums = 4e362c54d2891a80b605ae1996205c7d66ba971a54a038b2f261c7d263094a81
+	sha256sums = d378074265b9b55062f0bf796cfa91cc504de93be7322033e000929ba594e494
+	sha256sums = cc54e309c4b7a1fa3a8cacd997a86fcb50ba17c7f9de56d0b9dd1be84ee8a733
 
 pkgname = firefox-nightly-settings
