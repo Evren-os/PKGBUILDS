@@ -1,6 +1,6 @@
 # Maintainer: Evrenos <evrnos@proton.me>
 pkgname=firefox-nightly-settings
-pkgver=20260404
+pkgver=20260416
 pkgrel=1
 pkgdesc='CachyOS settings for Firefox Nightly'
 depends=('firefox-nightly' 'xdg-desktop-portal-impl')
@@ -12,8 +12,8 @@ source=(
     cachyos.js
     policies.json
 )
-sha256sums=('8be90524dedd526cd7964570ac5870589c828248fddc201cee461bf70fcc05b2'
-            '4e362c54d2891a80b605ae1996205c7d66ba971a54a038b2f261c7d263094a81')
+sha256sums=('d378074265b9b55062f0bf796cfa91cc504de93be7322033e000929ba594e494'
+            'cc54e309c4b7a1fa3a8cacd997a86fcb50ba17c7f9de56d0b9dd1be84ee8a733')
 
 pkgver() {
     date +%Y%m%d

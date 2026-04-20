@@ -65,24 +65,68 @@ pref("browser.ml.chat.enabled", false, locked);
 pref("browser.ml.chat.page", false, locked);
 pref("browser.ml.enable", false, locked);
 pref("browser.ml.linkPreview.enabled", false, locked);
-pref("browser.newtabpage.activity-stream.feeds.aboutpreferences", false, locked);
+pref(
+	"browser.newtabpage.activity-stream.feeds.aboutpreferences",
+	false,
+	locked,
+);
 pref("browser.newtabpage.activity-stream.feeds.adsfeed", false, locked);
-pref("browser.newtabpage.activity-stream.feeds.discoverystreamfeed", false, locked);
+pref(
+	"browser.newtabpage.activity-stream.feeds.discoverystreamfeed",
+	false,
+	locked,
+);
 pref("browser.newtabpage.activity-stream.feeds.places", false, locked);
-pref("browser.newtabpage.activity-stream.feeds.recommendationprovider", false, locked);
+pref(
+	"browser.newtabpage.activity-stream.feeds.recommendationprovider",
+	false,
+	locked,
+);
 pref("browser.newtabpage.activity-stream.feeds.system.topsites", false, locked);
-pref("browser.newtabpage.activity-stream.feeds.system.topstories", false, locked);
+pref(
+	"browser.newtabpage.activity-stream.feeds.system.topstories",
+	false,
+	locked,
+);
 pref("browser.newtabpage.activity-stream.feeds.topsites", false, locked);
-pref("browser.newtabpage.activity-stream.showSponsoredCheckboxes", false, locked);
+pref(
+	"browser.newtabpage.activity-stream.showSponsoredCheckboxes",
+	false,
+	locked,
+);
 pref("browser.newtabpage.activity-stream.system.showSponsored", false, locked);
-pref("browser.newtabpage.activity-stream.telemetry.structuredIngestion.endpoint", 0, locked);
+pref(
+	"browser.newtabpage.activity-stream.telemetry.structuredIngestion.endpoint",
+	0,
+	locked,
+);
 pref("browser.newtabpage.activity-stream.telemetry.ut.event", false, locked);
-pref("browser.newtabpage.activity-stream.unifiedAds.adsFeed.enabled", false, locked);
-pref("browser.newtabpage.activity-stream.unifiedAds.adsFeed.spocs.enabled", false, locked);
-pref("browser.newtabpage.activity-stream.unifiedAds.adsFeed.tiles.enabled",	false, locked);
+pref(
+	"browser.newtabpage.activity-stream.unifiedAds.adsFeed.enabled",
+	false,
+	locked,
+);
+pref(
+	"browser.newtabpage.activity-stream.unifiedAds.adsFeed.spocs.enabled",
+	false,
+	locked,
+);
+pref(
+	"browser.newtabpage.activity-stream.unifiedAds.adsFeed.tiles.enabled",
+	false,
+	locked,
+);
 pref("browser.newtabpage.activity-stream.unifiedAds.endpoint", "", locked);
-pref("browser.newtabpage.activity-stream.unifiedAds.spocs.enabled",	false, locked);
-pref("browser.newtabpage.activity-stream.unifiedAds.tiles.enabled", false, locked);
+pref(
+	"browser.newtabpage.activity-stream.unifiedAds.spocs.enabled",
+	false,
+	locked,
+);
+pref(
+	"browser.newtabpage.activity-stream.unifiedAds.tiles.enabled",
+	false,
+	locked,
+);
 pref("browser.newtabpage.enabled", false, locked);
 pref("browser.places.interactions.enabled", false, locked);
 pref("browser.privatebrowsing.vpnpromourl", "", locked);
@@ -90,6 +134,7 @@ pref("browser.promo.cookiebanners.enabled", false, locked);
 pref("browser.promo.focus.enabled", false, locked);
 pref("browser.promo.pin.enabled", false, locked);
 pref("browser.protections_panel.infoMessage.seen", true);
+pref("browser.search.visualSearch.featureGate", false, locked);
 pref("browser.send_to_device_locales", "");
 pref("browser.tabs.crashReporting.sendReport", false, locked);
 pref("browser.tabs.groups.smart.userEnabled", false, locked);
@@ -114,7 +159,7 @@ pref("extensions.blocklist.enabled", false, locked);
 pref("extensions.getAddons.showPane", false, locked);
 pref("extensions.htmlaboutaddons.recommendations.enabled", false, locked);
 pref("extensions.pocket.enabled", false, locked);
-pref("extensions.webcompat-reporter.enabled", false ,locked);
+pref("extensions.webcompat-reporter.enabled", false, locked);
 pref("media.gmp-gmpopenh264.autoupdate", false, locked);
 pref("signon.firefoxRelay.feature", "disabled", locked);
 
@@ -125,6 +170,13 @@ pref("security.pki.crlite_mode", 2, locked);
 pref("security.remote_settings.crlite_filters.enabled", true, locked);
 pref("services.settings.poll_interval", 300);
 
+// Disable OpenH264 support
+pref("media.ffmpeg.allow-openh264", false);
+pref("media.gmp-gmpopenh264.enabled", false);
+pref("media.gmp-gmpopenh264.provider.enabled", false);
+pref("media.gmp-gmpopenh264.visible", false);
+pref("media.webrtc.hw.h264.enabled", true);
+
 // Remove telemetry
 pref("browser.contentblocking.report.lockwise.enabled", false, locked);
 pref("browser.contentblocking.report.monitor.enabled", false, locked);
@@ -134,12 +186,24 @@ pref("browser.newtabpage.activity-stream.showSponsored", false, locked);
 pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false, locked);
 pref("browser.newtabpage.activity-stream.telemetry", false, locked);
 pref("browser.newtabpage.activity-stream.telemetry.ut.events", false, locked);
-pref("browser.newtabpage.activity-stream.trendingSearch.blockedAds", "", locked);
-pref("browser.newtabpage.activity-stream.trendingSearch.enabled", false, locked);
+pref(
+	"browser.newtabpage.activity-stream.trendingSearch.blockedAds",
+	"",
+	locked,
+);
+pref(
+	"browser.newtabpage.activity-stream.trendingSearch.enabled",
+	false,
+	locked,
+);
 pref("browser.newtabpage.activity-stream.trendingSearch.variant", "", locked);
 pref("browser.ping-centre.telemetry", false, locked);
 pref("browser.search.serpEventTelemetryCategorization.enabled", false, locked);
-pref("browser.search.serpEventTelemetryCategorization.regionEnabled", false, locked);
+pref(
+	"browser.search.serpEventTelemetryCategorization.regionEnabled",
+	false,
+	locked,
+);
 pref("browser.search.update", false, locked);
 pref("browser.shopping.experience2023.enabled", false, locked);
 pref("browser.startup.homepage_override.mstone", "ignore", locked);
@@ -181,8 +245,16 @@ pref("browser.safebrowsing.blockedURIs.enabled", false, locked);
 pref("browser.safebrowsing.debug", false, locked);
 pref("browser.safebrowsing.downloads.enabled", false, locked);
 pref("browser.safebrowsing.downloads.remote.block_dangerous", false, locked);
-pref("browser.safebrowsing.downloads.remote.block_dangerous_host", false, locked);
-pref("browser.safebrowsing.downloads.remote.block_potentially_unwanted", false, locked);
+pref(
+	"browser.safebrowsing.downloads.remote.block_dangerous_host",
+	false,
+	locked,
+);
+pref(
+	"browser.safebrowsing.downloads.remote.block_potentially_unwanted",
+	false,
+	locked,
+);
 pref("browser.safebrowsing.downloads.remote.block_uncommon", false, locked);
 pref("browser.safebrowsing.downloads.remote.enabled", false, locked);
 pref("browser.safebrowsing.downloads.remote.remote.url", "", locked);
@@ -195,18 +267,30 @@ pref("browser.safebrowsing.provider.google.advisoryURL", "", locked);
 pref("browser.safebrowsing.provider.google.gethashURL", "", locked);
 pref("browser.safebrowsing.provider.google.lists", "", locked);
 pref("browser.safebrowsing.provider.google.pver", 0, locked);
-pref("browser.safebrowsing.provider.google.reportMalwareMistakeURL", "", locked);
+pref(
+	"browser.safebrowsing.provider.google.reportMalwareMistakeURL",
+	"",
+	locked,
+);
 pref("browser.safebrowsing.provider.google.reportPhishMistakeURL", "", locked);
 pref("browser.safebrowsing.provider.google.reportURL", "", locked);
 pref("browser.safebrowsing.provider.google.updateURL", "", locked);
 pref("browser.safebrowsing.provider.google4.advisoryName", "", locked);
 pref("browser.safebrowsing.provider.google4.advisoryURL", "", locked);
-pref("browser.safebrowsing.provider.google4.dataSharing.enabled", false, locked);
+pref(
+	"browser.safebrowsing.provider.google4.dataSharing.enabled",
+	false,
+	locked,
+);
 pref("browser.safebrowsing.provider.google4.dataSharingURL", "", locked);
 pref("browser.safebrowsing.provider.google4.gethashURL", "", locked);
 pref("browser.safebrowsing.provider.google4.lists", "", locked);
 pref("browser.safebrowsing.provider.google4.pver", 0, locked);
-pref("browser.safebrowsing.provider.google4.reportMalwareMistakeURL", "", locked);
+pref(
+	"browser.safebrowsing.provider.google4.reportMalwareMistakeURL",
+	"",
+	locked,
+);
 pref("browser.safebrowsing.provider.google4.reportPhishMistakeURL", "", locked);
 pref("browser.safebrowsing.provider.google4.reportURL", "", locked);
 pref("browser.safebrowsing.provider.google4.updateURL", "", locked);
@@ -241,9 +325,18 @@ pref("network.cookie.cookieBehavior.optInPartitioning.pbmode", true);
 pref("network.predictor.enable-prefetch", false); // Disable speculative website loading
 pref("network.predictor.enabled", false); // Disable speculative website loading
 pref("network.prefetch-next", false); // https://developer.mozilla.org/en-US/docs/Glossary/Prefetch
-pref("privacy.query_stripping.strip_list", "__hsfp __hssc __hstc __s _hsenc _openstat dclid fbclid gbraid gclid hsCtaTracking igshid mc_eid ml_subscriber ml_subscriber_hash msclkid oft_c oft_ck oft_d oft_id oft_ids oft_k oft_lk oft_sk oly_anon_id oly_enc_id rb_clickid s_cid twclid vero_conv vero_id wbraid wickedid yclid"); // https://groups.google.com/a/mozilla.org/g/dev-platform/c/1vOSas0ptVQ?pli=1
-pref("urlclassifier.features.socialtracking.skipURLs", "*.instagram.com, *.twitter.com, *.twimg.com"); // allow embedded social content
-pref("urlclassifier.trackingSkipURLs", "*.reddit.com, *.twitter.com, *.twimg.com"); // allow embedded social content
+pref(
+	"privacy.query_stripping.strip_list",
+	"__hsfp __hssc __hstc __s _hsenc _openstat dclid fbclid gbraid gclid hsCtaTracking igshid mc_eid ml_subscriber ml_subscriber_hash msclkid oft_c oft_ck oft_d oft_id oft_ids oft_k oft_lk oft_sk oly_anon_id oly_enc_id rb_clickid s_cid twclid vero_conv vero_id wbraid wickedid yclid",
+); // https://groups.google.com/a/mozilla.org/g/dev-platform/c/1vOSas0ptVQ?pli=1
+pref(
+	"urlclassifier.features.socialtracking.skipURLs",
+	"*.instagram.com, *.twitter.com, *.twimg.com",
+); // allow embedded social content
+pref(
+	"urlclassifier.trackingSkipURLs",
+	"*.reddit.com, *.twitter.com, *.twimg.com",
+); // allow embedded social content
 
 // Desktop integration
 pref("widget.use-xdg-desktop-portal.file-picker", 1);
