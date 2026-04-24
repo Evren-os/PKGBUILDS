@@ -1,6 +1,6 @@
 # Maintainer: Evrenos <evrnos@proton.me>
 pkgname=firefox-nightly-settings
-pkgver=20260416
+pkgver=20260422
 pkgrel=1
 pkgdesc='CachyOS settings for Firefox Nightly'
 depends=('firefox-nightly' 'xdg-desktop-portal-impl')
