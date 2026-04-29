@@ -34,8 +34,8 @@ source=(
 )
 noextract=("${_filename}")
 sha256sums=(
-    'df4f60668327f89fa103a37c9270b09e08a21c4619ce6af0a1a0bbdddd047781'
-    'c4f2618cb29c36ee57e961c81d04c18759eb18e614a6e9c22d32e64f531e3ea7'
+    '3f1d67f68ce3056c233f1987452320e56c515c907b8c71a53b6249a57b7e8d6b'
+    'abf54cd68c666dff68f216b534202feeb947ad6cdba569fa05fd4f1ab54066dd'
     "${_sha256zip}"
 )
 
@@ -54,11 +54,11 @@ package() {
     chmod 4755 "${pkgdir}/opt/${pkgname}/chrome-sandbox"
 
     install -Dm0755 "${pkgname}.sh" "${pkgdir}/usr/bin/${pkgname}"
-    install -Dm0644 "${pkgname}.desktop" "${pkgdir}/usr/share/applications/brave-origin.desktop"
+    install -Dm0644 "${pkgname}.desktop" "${pkgdir}/usr/share/applications/${pkgname}.desktop"
     install -Dm0644 -t "${pkgdir}/usr/share/licenses/${pkgname}/" "${pkgname}/LICENSE"
 
     for size in 16 24 32 48 64 128 256; do
         install -Dm0644 "${pkgname}/product_logo_${size}.png" \
-            "${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/${pkgname}.png"
+            "${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/brave_origin_nightly.png"
     done
 }
