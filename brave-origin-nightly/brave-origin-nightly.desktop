@@ -1,0 +1,22 @@
+[Desktop Entry]
+Version=1.0
+Name=Brave Origin Nightly
+GenericName=Web Browser
+Comment=The minimalist browser from the makers of Brave (nightly release)
+Exec=/usr/bin/brave-origin-nightly %U
+Terminal=false
+Type=Application
+Icon=brave-origin-nightly
+StartupNotify=true
+StartupWMClass=brave-origin-nightly
+Categories=Network;WebBrowser;
+MimeType=application/pdf;application/rss+xml;application/xhtml+xml;text/html;text/xml;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/mailto;x-scheme-handler/webcal;
+Actions=new-window;new-private-window;
+
+[Desktop Action new-window]
+Name=New Window
+Exec=/usr/bin/brave-origin-nightly
+
+[Desktop Action new-private-window]
+Name=New Private Window
+Exec=/usr/bin/brave-origin-nightly --incognito

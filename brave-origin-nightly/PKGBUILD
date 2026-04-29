@@ -1,0 +1,64 @@
+# Maintainer: Evren-os
+
+pkgname=brave-origin-nightly
+pkgver=1.91.125
+pkgrel=1
+pkgdesc='The minimalist browser from the makers of Brave (nightly release)'
+arch=(x86_64)
+url='https://brave.com/origin/download-nightly'
+license=(MPL-2.0 BSD-3-Clause LicenseRef-chromium)
+depends=(
+    alsa-lib
+    gtk3
+    libxss
+    nss
+    ttf-font
+)
+optdepends=(
+    'cups: Printer support'
+    'libgnome-keyring: GNOME keyring support'
+    'libnotify: Native notification support'
+    'mesa: Hardware-accelerated rendering'
+)
+provides=(brave-origin-nightly-bin)
+conflicts=(brave-origin-nightly-bin)
+options=(!strip)
+
+_filename="${pkgname}-${pkgver}-linux-amd64.zip"
+_sha256zip='dc442fc02eb9686049c1f84becbbba524391229dd6e54cf52919dcfb18927972'
+
+source=(
+    "${pkgname}.sh"
+    "${pkgname}.desktop"
+    "${_filename}::https://github.com/brave/brave-browser/releases/download/v${pkgver}/${_filename}"
+)
+noextract=("${_filename}")
+sha256sums=(
+    'df4f60668327f89fa103a37c9270b09e08a21c4619ce6af0a1a0bbdddd047781'
+    'd61f3a7a82da95ea1e83859437cc09ed58187c8ca3168e6e1bc11b738705fd72'
+    "${_sha256zip}"
+)
+
+prepare() {
+    mkdir -p "${pkgname}"
+    bsdtar -xf "${_filename}" -C "${pkgname}"
+    chmod +x "${pkgname}/brave"
+    rm -rf "${pkgname}/cron"
+    rm -f "${pkgname}/${pkgname}"
+}
+
+package() {
+    install -dm0755 "${pkgdir}/opt/${pkgname}"
+    cp -a "${pkgname}/." "${pkgdir}/opt/${pkgname}/"
+
+    chmod 4755 "${pkgdir}/opt/${pkgname}/chrome-sandbox"
+
+    install -Dm0755 "${pkgname}.sh" "${pkgdir}/usr/bin/${pkgname}"
+    install -Dm0644 "${pkgname}.desktop" "${pkgdir}/usr/share/applications/${pkgname}.desktop"
+    install -Dm0644 -t "${pkgdir}/usr/share/licenses/${pkgname}/" "${pkgname}/LICENSE"
+
+    for size in 16 24 32 48 64 128 256; do
+        install -Dm0644 "${pkgname}/product_logo_${size}.png" \
+            "${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/${pkgname}.png"
+    done
+}

@@ -4,6 +4,7 @@
 *.src.tar.gz
 *.tar.gz
 *.tar.xz
+*.zip
 pkg/
 src/
 *.log
