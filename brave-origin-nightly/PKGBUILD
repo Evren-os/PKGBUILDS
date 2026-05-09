@@ -1,7 +1,7 @@
 # Maintainer: Evren-os
 
 pkgname=brave-origin-nightly
-pkgver=1.92.18
+pkgver=1.92.41
 pkgrel=1
 pkgdesc='The minimalist browser from the makers of Brave (nightly release)'
 arch=(x86_64)
@@ -25,7 +25,7 @@ conflicts=(brave-origin-nightly-bin)
 options=(!strip)
 
 _filename="${pkgname}-${pkgver}-linux-amd64.zip"
-_sha256zip='42703a025c385629f396f1ea1e0f198a56f0aca1a986e881321a59fe4c0c7def'
+_sha256zip='819f212f34c33cd8ad20822da560070c63d4b7d2cb545b6ec71aca7103b9d327'
 
 source=(
     "${pkgname}.sh"
@@ -58,7 +58,7 @@ package() {
     install -Dm0644 -t "${pkgdir}/usr/share/licenses/${pkgname}/" "${pkgname}/LICENSE"
 
     for size in 16 24 32 48 64 128 256; do
-        install -Dm0644 "${pkgname}/product_logo_${size}.png" \
+        install -Dm0644 "${pkgname}/product_logo_${size}_nightly.png" \
             "${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/brave_origin_nightly.png"
     done
 }
