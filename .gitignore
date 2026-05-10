@@ -11,3 +11,4 @@ src/
 *.pkg.tar.zst.old
 update.sh
 opencode/
+t3code/

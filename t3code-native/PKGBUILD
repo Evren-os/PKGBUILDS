@@ -1,0 +1,178 @@
+# Maintainer: Evren-os
+
+pkgname=t3code-native
+_pkgname=t3code
+pkgver=0.0.23
+pkgrel=1
+pkgdesc='T3 Code desktop AI coding agent (native build from source, AMD Zen 3 optimized)'
+arch=('x86_64')
+url='https://github.com/pingdotgg/t3code'
+license=('MIT')
+depends=(
+    'alsa-lib'
+    'at-spi2-core'
+    'cairo'
+    'dbus'
+    'expat'
+    'gcc-libs'
+    'gdk-pixbuf2'
+    'glib2'
+    'gtk3'
+    'hicolor-icon-theme'
+    'libcups'
+    'libdbusmenu-glib'
+    'libdrm'
+    'libx11'
+    'libxcb'
+    'libxcomposite'
+    'libxdamage'
+    'libxext'
+    'libxfixes'
+    'libxkbcommon'
+    'libxrandr'
+    'mesa'
+    'nspr'
+    'nss'
+    'pango'
+    'systemd-libs'
+    'xdg-utils'
+)
+makedepends=(
+    'git'
+    'bun'
+    'nodejs' # >=24.13.1 (required by upstream engines field)
+    'python' # for node-gyp: compiles node-pty native addon
+)
+optdepends=(
+    'openai-codex: use the system-installed Codex CLI'
+)
+provides=("t3code=${pkgver}")
+conflicts=(
+    't3code'
+    't3code-bin'
+    't3code-git'
+    't3code-nightly-bin'
+)
+# !strip: must not strip Electron's binary or native addons — breaks the app.
+# !lto:   LTO interferes with node-gyp-compiled shared objects.
+# !debug: no debug packages for a local-only build.
+options=('!debug' '!emptydirs' '!strip' '!lto')
+
+source=("${_pkgname}::git+${url}.git#tag=v${pkgver}")
+b2sums=('SKIP')
+
+prepare() {
+    cd "${_pkgname}"
+
+    # Set native CPU optimization flags before 'bun install' so that node-gyp
+    # picks them up when compiling native addons (primarily node-pty, a C++
+    # addon listed in upstream's trustedDependencies).
+    # Ryzen 7 5700G is Zen 3 (-march=znver3 == -march=native on this machine).
+    # Using -march=native keeps the PKGBUILD portable if you ever move it, while
+    # still emitting the optimal ISA for the build host.
+    export CFLAGS="${CFLAGS:+${CFLAGS} }-march=native -mtune=native -O3 -pipe"
+    export CXXFLAGS="${CXXFLAGS:+${CXXFLAGS} }-march=native -mtune=native -O3 -pipe"
+
+    # bun respects 'trustedDependencies' from package.json, so only node-pty and
+    # electron run their postinstall scripts — all other packages are sandboxed.
+    # --frozen-lockfile ensures dependency versions are pinned to bun.lock.
+    bun install --frozen-lockfile
+}
+
+build() {
+    cd "${_pkgname}"
+
+    # electron-builder downloads the prebuilt Electron binary on the first run
+    # (~150 MB, cached in ~/.cache/electron afterward). Network access is
+    # required on first build. This is unavoidable for Electron packaging.
+    bun run dist:desktop:linux
+
+    # Locate the AppImage produced by electron-builder and extract its payload.
+    # The squashfs-root/ directory is what gets installed to /opt.
+    local _appimage
+    _appimage="$(find release/ -name '*.AppImage' -print -quit)"
+    if [[ -z "${_appimage}" ]]; then
+        printf 'ERROR: No AppImage found under release/ — did dist:desktop:linux fail?\n' >&2
+        return 1
+    fi
+    chmod +x "${_appimage}"
+
+    # --appimage-extract uses the built-in squashfs extraction; does not require FUSE.
+    "${_appimage}" --appimage-extract
+}
+
+check() {
+    local _bin="${srcdir}/${_pkgname}/squashfs-root/t3code"
+    if [[ ! -x "${_bin}" ]]; then
+        printf 'ERROR: Expected Electron binary not found: %s\n' "${_bin}" >&2
+        return 1
+    fi
+}
+
+package() {
+    cd "${srcdir}/${_pkgname}"
+
+    # Install the extracted AppImage contents to /opt.
+    # Per Arch packaging guidelines, bundled Electron apps go in /opt/<pkgname>
+    # because they ship their own copies of shared libraries inside the bundle.
+    install -d "${pkgdir}/opt/${pkgname}"
+    cp -a squashfs-root/. "${pkgdir}/opt/${pkgname}/"
+    chmod -R a+rX "${pkgdir}/opt/${pkgname}"
+
+    # Wrapper script.
+    # Responsibilities:
+    #   1. Wayland detection — sets the correct Ozone flags.
+    #   2. Codex CLI forwarding — passes the system codex path to the app.
+    #   3. --no-sandbox — required on Arch; no setuid chrome-sandbox is shipped.
+    install -Dm755 /dev/stdin "${pkgdir}/usr/bin/t3code" <<'WRAPPER'
+#!/usr/bin/env bash
+set -euo pipefail
+
+readonly _appdir='/opt/t3code-native'
+
+# Forward system-installed Codex CLI path if not already set.
+if [[ -z "${CODEX_CLI_PATH-}" ]] && command -v codex &>/dev/null; then
+  export CODEX_CLI_PATH="$(command -v codex)"
+fi
+
+declare -a _flags=()
+if [[ "${XDG_SESSION_TYPE-}" == 'wayland' || -n "${WAYLAND_DISPLAY-}" ]]; then
+  # Native Wayland rendering via Ozone.
+  # WaylandWindowDecorations enables client-side decorations (CSD) on compositors
+  # that support the xdg-decoration protocol (KWin does).
+  _flags+=(
+    --ozone-platform=wayland
+    --enable-features=WaylandWindowDecorations
+  )
+else
+  # Let Electron auto-detect X11 / XWayland.
+  _flags+=(--ozone-platform-hint=auto)
+fi
+
+exec "${_appdir}/t3code" --no-sandbox "${_flags[@]}" "$@"
+WRAPPER
+
+    # Icon — path confirmed from the t3code-git PKGBUILD which builds the same source.
+    install -Dm644 assets/prod/black-universal-1024.png \
+        "${pkgdir}/usr/share/icons/hicolor/1024x1024/apps/t3code.png"
+    install -Dm644 assets/prod/black-universal-1024.png \
+        "${pkgdir}/usr/share/pixmaps/t3code.png"
+
+    # Desktop entry — freedesktop spec: Icon= must omit file extension.
+    install -Dm644 /dev/stdin "${pkgdir}/usr/share/applications/t3code.desktop" <<'DESKTOP'
+[Desktop Entry]
+Name=T3 Code
+GenericName=AI Coding Agent
+Comment=Minimal web GUI for AI coding agents (Codex, Claude, OpenCode)
+Exec=t3code %U
+Terminal=false
+Type=Application
+Icon=t3code
+StartupWMClass=t3code
+Categories=Development;IDE;
+Keywords=AI;code;agent;Codex;Claude;opencode;
+MimeType=x-scheme-handler/t3code;
+DESKTOP
+
+    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
