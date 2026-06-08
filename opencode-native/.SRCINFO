@@ -1,6 +1,6 @@
 pkgbase = opencode-native
 	pkgdesc = The open source coding agent (native x86_64 build from source)
-	pkgver = 1.15.13
+	pkgver = 1.16.2
 	pkgrel = 1
 	url = https://github.com/anomalyco/opencode
 	arch = x86_64
@@ -15,13 +15,13 @@ pkgbase = opencode-native
 	depends = tar
 	optdepends = wl-clipboard: clipboard support on Wayland
 	optdepends = xclip: clipboard support on X11
-	provides = opencode=1.15.13
+	provides = opencode=1.16.2
 	conflicts = opencode
 	conflicts = opencode-bin
 	conflicts = opencode-git
 	options = !debug
 	options = !strip
-	source = opencode::git+https://github.com/anomalyco/opencode.git#commit=385cb694419f98103af0e8fc6187ddcbcbb6eecb
+	source = opencode::git+https://github.com/anomalyco/opencode.git#commit=76c631d198f9ff620e15468e45f3457d50481b57
 	b2sums = SKIP
 
 pkgname = opencode-native
