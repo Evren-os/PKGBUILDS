@@ -1,6 +1,6 @@
 pkgbase = t3code-native
 	pkgdesc = T3 Code desktop AI coding agent (native build from source, AMD Zen 3 optimized)
-	pkgver = 0.0.24
+	pkgver = 0.0.27
 	pkgrel = 1
 	url = https://github.com/pingdotgg/t3code
 	arch = x86_64
@@ -37,7 +37,7 @@ pkgbase = t3code-native
 	depends = systemd-libs
 	depends = xdg-utils
 	optdepends = openai-codex: use the system-installed Codex CLI
-	provides = t3code=0.0.24
+	provides = t3code=0.0.27
 	conflicts = t3code
 	conflicts = t3code-bin
 	conflicts = t3code-git
@@ -46,7 +46,7 @@ pkgbase = t3code-native
 	options = !emptydirs
 	options = !strip
 	options = !lto
-	source = t3code::git+https://github.com/pingdotgg/t3code.git#tag=v0.0.24
+	source = t3code::git+https://github.com/pingdotgg/t3code.git#tag=v0.0.27
 	b2sums = SKIP
 
 pkgname = t3code-native
