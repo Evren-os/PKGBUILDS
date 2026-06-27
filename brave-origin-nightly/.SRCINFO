@@ -1,6 +1,6 @@
 pkgbase = brave-origin-nightly
 	pkgdesc = The minimalist browser from the makers of Brave (nightly release)
-	pkgver = 1.93.100
+	pkgver = 1.94.10
 	pkgrel = 1
 	url = https://brave.com/origin/download-nightly
 	arch = x86_64
@@ -18,13 +18,13 @@ pkgbase = brave-origin-nightly
 	optdepends = mesa: Hardware-accelerated rendering
 	provides = brave-origin-nightly-bin
 	conflicts = brave-origin-nightly-bin
-	noextract = brave-origin-nightly-1.93.100-linux-amd64.zip
+	noextract = brave-origin-nightly-1.94.10-linux-amd64.zip
 	options = !strip
 	source = brave-origin-nightly.sh
 	source = brave-origin-nightly.desktop
-	source = brave-origin-nightly-1.93.100-linux-amd64.zip::https://github.com/brave/brave-browser/releases/download/v1.93.100/brave-origin-nightly-1.93.100-linux-amd64.zip
+	source = brave-origin-nightly-1.94.10-linux-amd64.zip::https://github.com/brave/brave-browser/releases/download/v1.94.10/brave-origin-nightly-1.94.10-linux-amd64.zip
 	sha256sums = 3f1d67f68ce3056c233f1987452320e56c515c907b8c71a53b6249a57b7e8d6b
 	sha256sums = abf54cd68c666dff68f216b534202feeb947ad6cdba569fa05fd4f1ab54066dd
-	sha256sums = 61cdff3ee4e86d1f4ba81086916701cd5152cc82308d16d38f610be875682837
+	sha256sums = cfa8defa639b3ab503a6c240ef71d20246992a1fa737a05a372233d438831deb
 
 pkgname = brave-origin-nightly
