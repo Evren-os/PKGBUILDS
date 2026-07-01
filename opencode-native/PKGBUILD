@@ -2,7 +2,7 @@
 
 pkgname=opencode-native
 _pkgname=opencode
-pkgver=1.17.11
+pkgver=1.17.12
 pkgrel=1
 pkgdesc='The open source coding agent (native x86_64 build from source)'
 arch=('x86_64')
@@ -35,7 +35,7 @@ options=(
   '!strip'
 )
 
-_commit='67aec2212010d67775c35e696d8b8b54902eb338'
+_commit='00cb16a8412761389768b865e56f5db02571dc1c'
 source=("${_pkgname}::git+${url}.git#commit=${_commit}")
 b2sums=('SKIP')
 
