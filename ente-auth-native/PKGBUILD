@@ -1,7 +1,7 @@
 # Maintainer: Evrenos
 
 pkgname=ente-auth
-pkgver=4.4.23
+pkgver=4.4.24
 pkgrel=1
 pkgdesc='Two-factor authenticator with end-to-end encrypted backups'
 arch=('x86_64')
@@ -45,7 +45,7 @@ source=(
   "simple-icons-${_simple_icons_commit}.tar.gz::https://github.com/simple-icons/simple-icons/archive/${_simple_icons_commit}.tar.gz"
   "flutter-linux-${_flutter_version}.tar.xz::https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${_flutter_version}-stable.tar.xz"
 )
-sha256sums=('56ef896387c817948a7ad569dea38188fb486cb543e47821d06de22fe26344d1'
+sha256sums=('e17102dce08e61fbdcdfb9f003745729f9c180091e0eb45e9cc5bd614ebb313d'
             '901ba4889b0c983e28e68ee241f94801cb0179a16536c0ee5b158773385ace82'
             '385e2629a0a585a835f351ca1605d2c7996377ce2fa16e68296e8fc9a78ccf7a')
 
