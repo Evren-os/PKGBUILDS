@@ -1,58 +1,80 @@
-# Maintainer: Evrenos <evrnos@proton.me>
+# Maintainer: Evrenos
 
-pkgname=espanso-wayland
 _pkgbase=espanso
-pkgver=2.3.0
+pkgname=espanso-wayland
+pkgver=2.4.0
 pkgrel=1
-pkgdesc="Cross-platform Text Expander written in Rust (built for Wayland with local optimizations)"
+pkgdesc="Cross-platform Text Expander written in Rust (Wayland build, locally optimized for znver3)"
 arch=(x86_64)
 url="https://github.com/espanso/espanso"
+license=(GPL-3.0-only)
 provides=(espanso)
 conflicts=(espanso espanso-x11)
 install=espanso-wayland.install
-makedepends=(
-  cargo
-  rust
-)
+
 depends=(
+  bzip2
   dbus
   gcc-libs
+  glibc
   libxkbcommon
-  openssl
   wl-clipboard
+  wxwidgets-common
   wxwidgets-gtk3
 )
 
-options=(!lto)
-source=(
-  "$url/archive/v$pkgver/$_pkgbase-$pkgver.tar.gz"
+makedepends=(
+  bzip2
+  cargo
+  clang
+  dbus
+  libxkbcommon
+  lld
+  rust
+  rust-src
+  wxwidgets-common
+  wxwidgets-gtk3
 )
-sha256sums=('32b315a813114b28ef3ee74c5d2ce0bfc2f75a0bd9a4141c7465cd0b00fdf34c')
+
+optdepends=(
+  'kdotool: window/app-specific context matching under KDE Plasma Wayland'
+)
+
+options=(!lto !debug)
+
+source=("$_pkgbase-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('90895a8a79476f902a6cfc88a67e8e077971be13f728ce1a35866355d60285a7')
 
 prepare() {
   cd "$_pkgbase-$pkgver"
+  export CARGO_HOME="${CARGO_HOME:-$HOME/.cargo}"
+  export RUSTC_BOOTSTRAP=1
+  cargo fetch --locked --target x86_64-unknown-linux-gnu
   sed 's|{{{espanso_path}}}|/usr/bin/espanso|g' espanso/src/res/linux/systemd.service > espanso.service
   sed 's/Icon=icon/Icon=espanso/g' espanso/src/res/linux/espanso.desktop > espanso.desktop
 }
 
 build() {
   cd "$_pkgbase-$pkgver"
-
+  export CARGO_HOME="${CARGO_HOME:-$HOME/.cargo}"
   export CARGO_TARGET_DIR="target-wayland"
-
+  export RUSTC_BOOTSTRAP=1
+  unset RUSTFLAGS
   cargo build --frozen --release \
-    --features wayland \
     --manifest-path espanso/Cargo.toml \
-    --package espanso
+    --package espanso \
+    --target x86_64-unknown-linux-gnu \
+    --no-default-features \
+    --features modulo,vendored-tls,wayland
 }
 
 package() {
   cd "$_pkgbase-$pkgver"
 
-  install -vDm755 -t "$pkgdir/usr/bin" "target-wayland/release/espanso"
-
-  install -vDm644 -t "$pkgdir/usr/lib/systemd/user" "espanso.service"
-  install -vDm644 -t "$pkgdir/usr/share/applications" "espanso.desktop"
-  install -vDm644 -t "$pkgdir/usr/share/doc/espanso" ./*.md
+  install -vDm755 "target-wayland/x86_64-unknown-linux-gnu/release/espanso" "$pkgdir/usr/bin/espanso"
+  install -vDm644 "espanso.service" "$pkgdir/usr/lib/systemd/user/espanso.service"
+  install -vDm644 "espanso.desktop" "$pkgdir/usr/share/applications/espanso.desktop"
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
   install -vDm644 "espanso/src/res/linux/icon.png" "$pkgdir/usr/share/pixmaps/espanso.png"
+  install -vDm644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }

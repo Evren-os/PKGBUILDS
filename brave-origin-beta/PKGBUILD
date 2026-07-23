@@ -1,11 +1,11 @@
 # Maintainer: Evren-os
 
-pkgname=brave-origin-nightly
-pkgver=1.94.90
+pkgname=brave-origin-beta
+pkgver=1.93.117
 pkgrel=1
-pkgdesc='The minimalist browser from the makers of Brave (nightly release)'
+pkgdesc='The minimalist browser from the makers of Brave (beta release)'
 arch=(x86_64)
-url='https://brave.com/origin/download-nightly'
+url='https://brave.com/origin/download-beta'
 license=(MPL-2.0 BSD-3-Clause LicenseRef-chromium)
 depends=(
     alsa-lib
@@ -20,12 +20,12 @@ optdepends=(
     'libnotify: Native notification support'
     'mesa: Hardware-accelerated rendering'
 )
-provides=(brave-origin-nightly-bin)
-conflicts=(brave-origin-nightly-bin)
+provides=(brave-origin-beta-bin)
+conflicts=(brave-origin-beta-bin)
 options=(!strip)
 
 _filename="${pkgname}-${pkgver}-linux-amd64.zip"
-_sha256zip='608e09f20bf6d33227c5a1207df508979e482371e0086e5dc0d84dbee26dfe21'
+_sha256zip='3d4cf677992d1db11b9386a904470446175e42ea516e33555109550dafb032d1'
 
 source=(
     "${pkgname}.sh"
@@ -34,8 +34,8 @@ source=(
 )
 noextract=("${_filename}")
 sha256sums=(
-    '3f1d67f68ce3056c233f1987452320e56c515c907b8c71a53b6249a57b7e8d6b'
-    'abf54cd68c666dff68f216b534202feeb947ad6cdba569fa05fd4f1ab54066dd'
+    '6afbc253d899aa6fbe5dcbe082f8137824f422fe169c4e95fec6334893925fb0'
+    '3fd2e0f9055ff73c2200a668627b70e9c46652d39f30e9077706d25caf8226f1'
     "${_sha256zip}"
 )
 
@@ -58,7 +58,7 @@ package() {
     install -Dm0644 -t "${pkgdir}/usr/share/licenses/${pkgname}/" "${pkgname}/LICENSE"
 
     for size in 16 24 32 48 64 128 256; do
-        install -Dm0644 "${pkgname}/product_logo_${size}_nightly.png" \
-            "${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/brave_origin_nightly.png"
+        install -Dm0644 "${pkgname}/product_logo_${size}_beta.png" \
+            "${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/brave_origin_beta.png"
     done
 }
