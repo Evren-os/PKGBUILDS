@@ -1,0 +1,17 @@
+pkgbase = filen-cli
+	pkgdesc = The Filen CLI provides a set of useful tools for interacting with the cloud
+	pkgver = 0.0.36
+	pkgrel = 1
+	url = https://github.com/FilenCloudDienste/filen-cli
+	arch = x86_64
+	license = AGPL-3.0-only
+	depends = glibc
+	optdepends = fuse3: for mounting Filen drive as a local network drive
+	provides = filen-cli=0.0.36
+	conflicts = filen-cli-bin
+	conflicts = filen-cli-git
+	options = !strip
+	source = filen-cli-0.0.36::https://github.com/FilenCloudDienste/filen-cli/releases/download/v0.0.36/filen-cli-v0.0.36-linux-x64
+	sha256sums = be690d94d3310187dc7b4fe46b3e49becfb327c29ac64d49cfe73252c7c3c04a
+
+pkgname = filen-cli

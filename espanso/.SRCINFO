@@ -13,7 +13,6 @@ pkgbase = espanso-wayland
 	makedepends = libxkbcommon
 	makedepends = lld
 	makedepends = rust
-	makedepends = rust-src
 	makedepends = wxwidgets-common
 	makedepends = wxwidgets-gtk3
 	depends = bzip2

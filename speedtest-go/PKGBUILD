@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+pkgname='speedtest-go'
+pkgver='1.7.10'
+pkgrel='1'
+pkgdesc='CLI and Go API to Test Internet Speed using speedtest.net'
+arch=('x86_64')
+url="https://github.com/showwin/${pkgname}"
+license=('MIT')
+depends=('glibc')
+makedepends=('go>=1.25')
+provides=("${pkgname}")
+conflicts=("${pkgname}")
+source=("${url}/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('70a2937d0759820fe7ee8f61b960d60c07b34c0d783ed11c0065b68fe2964aea')
+
+prepare() {
+  cd "${pkgname}-${pkgver}" || exit
+  export GOPROXY='https://proxy.golang.org'
+  export GOSUMDB='sum.golang.org'
+  export GOVCS='*:off'
+  export GOTOOLCHAIN='local'
+  export GOFLAGS='-mod=readonly'
+  go mod download
+  go mod verify
+}
+
+build() {
+  cd "${pkgname}-${pkgver}" || exit
+  export CGO_ENABLED=1
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS} -march=znver3 -mtune=znver3 -fstack-protector-strong -fstack-clash-protection -fcf-protection=full -D_FORTIFY_SOURCE=3"
+  export CGO_CXXFLAGS="${CXXFLAGS} -march=znver3 -mtune=znver3 -fstack-protector-strong -fstack-clash-protection -fcf-protection=full -D_FORTIFY_SOURCE=3"
+  export CGO_LDFLAGS="${LDFLAGS} -Wl,-z,relro,-z,now,-z,noexecstack"
+  export GOPROXY='off'
+  export GOFLAGS='-trimpath -mod=readonly -modcacherw'
+  export GOTOOLCHAIN='local'
+  export GOAMD64='v3'
+  go build -buildmode=pie -tags=netgo -ldflags "-linkmode=external -extldflags=-Wl,-z,relro,-z,now,-z,noexecstack -s -w -buildid=" -o "${pkgname}" .
+}
+
+check() {
+  cd "${pkgname}-${pkgver}" || exit
+  export GOPROXY='off'
+  export GOFLAGS='-mod=readonly'
+  export GOTOOLCHAIN='local'
+  export GOAMD64='v3'
+  go test -tags=netgo -count=1 "./${pkgname%-go}"
+}
+
+package() {
+  cd "${pkgname}-${pkgver}" || exit
+  install -Dm755 "${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}

@@ -1,0 +1,20 @@
+# Maintainer: Evren-os
+
+pkgname=filen-cli
+pkgver=0.0.36
+pkgrel=1
+pkgdesc="The Filen CLI provides a set of useful tools for interacting with the cloud"
+arch=('x86_64')
+url="https://github.com/FilenCloudDienste/filen-cli"
+license=('AGPL-3.0-only')
+depends=('glibc')
+optdepends=('fuse3: for mounting Filen drive as a local network drive')
+provides=("filen-cli=${pkgver}")
+conflicts=('filen-cli-bin' 'filen-cli-git')
+options=('!strip')
+source=("${pkgname}-${pkgver}::https://github.com/FilenCloudDienste/filen-cli/releases/download/v${pkgver}/filen-cli-v${pkgver}-linux-x64")
+sha256sums=('be690d94d3310187dc7b4fe46b3e49becfb327c29ac64d49cfe73252c7c3c04a')
+
+package() {
+  install -Dm755 "${srcdir}/${pkgname}-${pkgver}" "${pkgdir}/usr/bin/filen-cli"
+}

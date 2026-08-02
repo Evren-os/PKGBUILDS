@@ -31,7 +31,6 @@ makedepends=(
   libxkbcommon
   lld
   rust
-  rust-src
   wxwidgets-common
   wxwidgets-gtk3
 )
@@ -48,7 +47,6 @@ sha256sums=('90895a8a79476f902a6cfc88a67e8e077971be13f728ce1a35866355d60285a7')
 prepare() {
   cd "$_pkgbase-$pkgver"
   export CARGO_HOME="${CARGO_HOME:-$HOME/.cargo}"
-  export RUSTC_BOOTSTRAP=1
   cargo fetch --locked --target x86_64-unknown-linux-gnu
   sed 's|{{{espanso_path}}}|/usr/bin/espanso|g' espanso/src/res/linux/systemd.service > espanso.service
   sed 's/Icon=icon/Icon=espanso/g' espanso/src/res/linux/espanso.desktop > espanso.desktop
@@ -58,7 +56,6 @@ build() {
   cd "$_pkgbase-$pkgver"
   export CARGO_HOME="${CARGO_HOME:-$HOME/.cargo}"
   export CARGO_TARGET_DIR="target-wayland"
-  export RUSTC_BOOTSTRAP=1
   unset RUSTFLAGS
   cargo build --frozen --release \
     --manifest-path espanso/Cargo.toml \
