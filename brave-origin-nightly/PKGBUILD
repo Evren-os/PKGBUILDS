@@ -1,7 +1,7 @@
 # Maintainer: Evren-os
 
 pkgname=brave-origin-nightly
-pkgver=1.95.29
+pkgver=1.95.52
 pkgrel=1
 pkgdesc='The minimalist browser from the makers of Brave (nightly release)'
 arch=(x86_64)
@@ -25,7 +25,7 @@ conflicts=(brave-origin-nightly-bin)
 options=(!strip)
 
 _filename="${pkgname}-${pkgver}-linux-amd64.zip"
-_sha256zip='36a9bbcfc15d3a0a6f0cccf473a2402e79b54ffd439db68e6c4c37c2e0a57fcf'
+_sha256zip='6a51ba7642171d73749254f363c9d7d119e5fab2820aa84ff36e0c70de1f511d'
 
 source=(
     "${pkgname}.sh"
