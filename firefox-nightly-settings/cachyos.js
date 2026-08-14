@@ -65,68 +65,24 @@ pref("browser.ml.chat.enabled", false, locked);
 pref("browser.ml.chat.page", false, locked);
 pref("browser.ml.enable", false, locked);
 pref("browser.ml.linkPreview.enabled", false, locked);
-pref(
-	"browser.newtabpage.activity-stream.feeds.aboutpreferences",
-	false,
-	locked,
-);
+pref("browser.newtabpage.activity-stream.feeds.aboutpreferences", false, locked);
 pref("browser.newtabpage.activity-stream.feeds.adsfeed", false, locked);
-pref(
-	"browser.newtabpage.activity-stream.feeds.discoverystreamfeed",
-	false,
-	locked,
-);
+pref("browser.newtabpage.activity-stream.feeds.discoverystreamfeed", false, locked);
 pref("browser.newtabpage.activity-stream.feeds.places", false, locked);
-pref(
-	"browser.newtabpage.activity-stream.feeds.recommendationprovider",
-	false,
-	locked,
-);
+pref("browser.newtabpage.activity-stream.feeds.recommendationprovider", false, locked);
 pref("browser.newtabpage.activity-stream.feeds.system.topsites", false, locked);
-pref(
-	"browser.newtabpage.activity-stream.feeds.system.topstories",
-	false,
-	locked,
-);
+pref("browser.newtabpage.activity-stream.feeds.system.topstories", false, locked);
 pref("browser.newtabpage.activity-stream.feeds.topsites", false, locked);
-pref(
-	"browser.newtabpage.activity-stream.showSponsoredCheckboxes",
-	false,
-	locked,
-);
+pref("browser.newtabpage.activity-stream.showSponsoredCheckboxes", false, locked);
 pref("browser.newtabpage.activity-stream.system.showSponsored", false, locked);
-pref(
-	"browser.newtabpage.activity-stream.telemetry.structuredIngestion.endpoint",
-	0,
-	locked,
-);
+pref("browser.newtabpage.activity-stream.telemetry.structuredIngestion.endpoint", 0, locked);
 pref("browser.newtabpage.activity-stream.telemetry.ut.event", false, locked);
-pref(
-	"browser.newtabpage.activity-stream.unifiedAds.adsFeed.enabled",
-	false,
-	locked,
-);
-pref(
-	"browser.newtabpage.activity-stream.unifiedAds.adsFeed.spocs.enabled",
-	false,
-	locked,
-);
-pref(
-	"browser.newtabpage.activity-stream.unifiedAds.adsFeed.tiles.enabled",
-	false,
-	locked,
-);
+pref("browser.newtabpage.activity-stream.unifiedAds.adsFeed.enabled", false, locked);
+pref("browser.newtabpage.activity-stream.unifiedAds.adsFeed.spocs.enabled", false, locked);
+pref("browser.newtabpage.activity-stream.unifiedAds.adsFeed.tiles.enabled", false, locked);
 pref("browser.newtabpage.activity-stream.unifiedAds.endpoint", "", locked);
-pref(
-	"browser.newtabpage.activity-stream.unifiedAds.spocs.enabled",
-	false,
-	locked,
-);
-pref(
-	"browser.newtabpage.activity-stream.unifiedAds.tiles.enabled",
-	false,
-	locked,
-);
+pref("browser.newtabpage.activity-stream.unifiedAds.spocs.enabled", false, locked);
+pref("browser.newtabpage.activity-stream.unifiedAds.tiles.enabled", false, locked);
 pref("browser.newtabpage.enabled", false, locked);
 pref("browser.places.interactions.enabled", false, locked);
 pref("browser.privatebrowsing.vpnpromourl", "", locked);
