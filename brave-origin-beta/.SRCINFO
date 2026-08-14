@@ -1,6 +1,6 @@
 pkgbase = brave-origin-beta
 	pkgdesc = The minimalist browser from the makers of Brave (beta release)
-	pkgver = 1.94.100
+	pkgver = 1.94.110
 	pkgrel = 1
 	url = https://brave.com/origin/download-beta
 	arch = x86_64
@@ -18,13 +18,13 @@ pkgbase = brave-origin-beta
 	optdepends = mesa: Hardware-accelerated rendering
 	provides = brave-origin-beta-bin
 	conflicts = brave-origin-beta-bin
-	noextract = brave-origin-beta-1.94.100-linux-amd64.zip
+	noextract = brave-origin-beta-1.94.110-linux-amd64.zip
 	options = !strip
 	source = brave-origin-beta.sh
 	source = brave-origin-beta.desktop
-	source = brave-origin-beta-1.94.100-linux-amd64.zip::https://github.com/brave/brave-browser/releases/download/v1.94.100/brave-origin-beta-1.94.100-linux-amd64.zip
+	source = brave-origin-beta-1.94.110-linux-amd64.zip::https://github.com/brave/brave-browser/releases/download/v1.94.110/brave-origin-beta-1.94.110-linux-amd64.zip
 	sha256sums = 6afbc253d899aa6fbe5dcbe082f8137824f422fe169c4e95fec6334893925fb0
 	sha256sums = 3fd2e0f9055ff73c2200a668627b70e9c46652d39f30e9077706d25caf8226f1
-	sha256sums = c0ae1d70cbe7d3e1b1d3934fa4f2e45a9f6626a2bd948cb31e0c28a259e2cebd
+	sha256sums = b67543eb694ab91d995bb22b9afef0c9ced7409e883a0de4d6af85201b32209d
 
 pkgname = brave-origin-beta
