@@ -201,16 +201,8 @@ pref("browser.safebrowsing.blockedURIs.enabled", false, locked);
 pref("browser.safebrowsing.debug", false, locked);
 pref("browser.safebrowsing.downloads.enabled", false, locked);
 pref("browser.safebrowsing.downloads.remote.block_dangerous", false, locked);
-pref(
-	"browser.safebrowsing.downloads.remote.block_dangerous_host",
-	false,
-	locked,
-);
-pref(
-	"browser.safebrowsing.downloads.remote.block_potentially_unwanted",
-	false,
-	locked,
-);
+pref("browser.safebrowsing.downloads.remote.block_dangerous_host", false, locked);
+pref("browser.safebrowsing.downloads.remote.block_potentially_unwanted", false, locked);
 pref("browser.safebrowsing.downloads.remote.block_uncommon", false, locked);
 pref("browser.safebrowsing.downloads.remote.enabled", false, locked);
 pref("browser.safebrowsing.downloads.remote.remote.url", "", locked);
@@ -223,30 +215,18 @@ pref("browser.safebrowsing.provider.google.advisoryURL", "", locked);
 pref("browser.safebrowsing.provider.google.gethashURL", "", locked);
 pref("browser.safebrowsing.provider.google.lists", "", locked);
 pref("browser.safebrowsing.provider.google.pver", 0, locked);
-pref(
-	"browser.safebrowsing.provider.google.reportMalwareMistakeURL",
-	"",
-	locked,
-);
+pref("browser.safebrowsing.provider.google.reportMalwareMistakeURL", "", locked);
 pref("browser.safebrowsing.provider.google.reportPhishMistakeURL", "", locked);
 pref("browser.safebrowsing.provider.google.reportURL", "", locked);
 pref("browser.safebrowsing.provider.google.updateURL", "", locked);
 pref("browser.safebrowsing.provider.google4.advisoryName", "", locked);
 pref("browser.safebrowsing.provider.google4.advisoryURL", "", locked);
-pref(
-	"browser.safebrowsing.provider.google4.dataSharing.enabled",
-	false,
-	locked,
-);
+pref("browser.safebrowsing.provider.google4.dataSharing.enabled", false, locked);
 pref("browser.safebrowsing.provider.google4.dataSharingURL", "", locked);
 pref("browser.safebrowsing.provider.google4.gethashURL", "", locked);
 pref("browser.safebrowsing.provider.google4.lists", "", locked);
 pref("browser.safebrowsing.provider.google4.pver", 0, locked);
-pref(
-	"browser.safebrowsing.provider.google4.reportMalwareMistakeURL",
-	"",
-	locked,
-);
+pref("browser.safebrowsing.provider.google4.reportMalwareMistakeURL", "", locked);
 pref("browser.safebrowsing.provider.google4.reportPhishMistakeURL", "", locked);
 pref("browser.safebrowsing.provider.google4.reportURL", "", locked);
 pref("browser.safebrowsing.provider.google4.updateURL", "", locked);
@@ -281,18 +261,9 @@ pref("network.cookie.cookieBehavior.optInPartitioning.pbmode", true);
 pref("network.predictor.enable-prefetch", false); // Disable speculative website loading
 pref("network.predictor.enabled", false); // Disable speculative website loading
 pref("network.prefetch-next", false); // https://developer.mozilla.org/en-US/docs/Glossary/Prefetch
-pref(
-	"privacy.query_stripping.strip_list",
-	"__hsfp __hssc __hstc __s _hsenc _openstat dclid fbclid gbraid gclid hsCtaTracking igshid mc_eid ml_subscriber ml_subscriber_hash msclkid oft_c oft_ck oft_d oft_id oft_ids oft_k oft_lk oft_sk oly_anon_id oly_enc_id rb_clickid s_cid twclid vero_conv vero_id wbraid wickedid yclid",
-); // https://groups.google.com/a/mozilla.org/g/dev-platform/c/1vOSas0ptVQ?pli=1
-pref(
-	"urlclassifier.features.socialtracking.skipURLs",
-	"*.instagram.com, *.twitter.com, *.twimg.com",
-); // allow embedded social content
-pref(
-	"urlclassifier.trackingSkipURLs",
-	"*.reddit.com, *.twitter.com, *.twimg.com",
-); // allow embedded social content
+pref("privacy.query_stripping.strip_list", "__hsfp __hssc __hstc __s _hsenc _openstat dclid fbclid gbraid gclid hsCtaTracking igshid mc_eid ml_subscriber ml_subscriber_hash msclkid oft_c oft_ck oft_d oft_id oft_ids oft_k oft_lk oft_sk oly_anon_id oly_enc_id rb_clickid s_cid twclid vero_conv vero_id wbraid wickedid yclid"); // https://groups.google.com/a/mozilla.org/g/dev-platform/c/1vOSas0ptVQ?pli=1
+pref("urlclassifier.features.socialtracking.skipURLs", "*.instagram.com, *.twitter.com, *.twimg.com"); // allow embedded social content
+pref("urlclassifier.trackingSkipURLs", "*.reddit.com, *.twitter.com, *.twimg.com"); // allow embedded social content
 
 // Desktop integration
 pref("widget.use-xdg-desktop-portal.file-picker", 1);
