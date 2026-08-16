@@ -10,7 +10,7 @@ pkgbase = firefox-nightly-settings
 	backup = etc/firefox/policies/policies.json
 	source = cachyos.js
 	source = policies.json
-	sha256sums = ade0440e371e34a60028fe36919ec824e1acac70598f8bf515bd28eedcb63958
+	sha256sums = c9167dedd01623250a4188e6bf1ffe1ab95e8b4b7993ce7b514079502af26ec4
 	sha256sums = cc54e309c4b7a1fa3a8cacd997a86fcb50ba17c7f9de56d0b9dd1be84ee8a733
 
 pkgname = firefox-nightly-settings

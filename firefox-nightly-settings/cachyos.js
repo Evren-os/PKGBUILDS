@@ -20,19 +20,19 @@ pref("media.gpu-process-decoder", true);
 pref("browser.cache.disk.enable", false);
 pref("browser.cache.memory.capacity", 1048576);
 pref("gfx.canvas.accelerated.cache-items", 32768);
-pref("gfx.canvas.accelerated.cache-size", 4096);
-pref("gfx.content.skia-font-cache-size", 80);
+pref("gfx.canvas.accelerated.cache-size", 4096, locked);
+pref("gfx.content.skia-font-cache-size", 80, locked);
 pref("gfx.webrender.all", true);
 pref("gfx.webrender.precache-shaders", true);
 pref("gfx.webrender.program-binary-disk", true);
 pref("layers.gpu-process.enabled", true); // Use dedicated GPU process
 
 // Memory & Cache Tweaks (Non-Disk)
-pref("image.mem.decode_bytes_at_a_time", 65536); // Increase image decode chunk size
+pref("image.mem.decode_bytes_at_a_time", 65536, locked); // Increase image decode chunk size
 pref("image.mem.shared.unmap.min_expiration_ms", 120000);
-pref("media.cache_readahead_limit", 7200); // Increase media readahead
-pref("media.cache_resume_threshold", 3600); // Increase media resume threshold
-pref("media.memory_cache_max_size", 1048576); // Increase media memory cache (1GB)
+pref("media.cache_readahead_limit", 7200, locked); // Increase media readahead
+pref("media.cache_resume_threshold", 3600, locked); // Increase media resume threshold
+pref("media.memory_cache_max_size", 1048576, locked); // Increase media memory cache (1GB)
 pref("media.memory_caches_combined_limit_kb", 3145728); // Increase combined media caches limit (3GB)
 pref("network.buffer.cache.size", 65535); // Network buffer size
 pref("network.ssl_tokens_cache_capacity", 32768); // Increase SSL token cache
@@ -44,10 +44,8 @@ pref("breakpad.reportURL", "", locked);
 pref("browser.contentanalysis.default_result", 0, locked);
 pref("browser.contentanalysis.enabled", false, locked);
 pref("browser.contentblocking.report.hide_vpn_banner", true, locked);
-pref("browser.contentblocking.report.lockwise.enabled", false);
 pref("browser.contentblocking.report.mobile-android.url", "", locked);
 pref("browser.contentblocking.report.mobile-ios.url", "", locked);
-pref("browser.contentblocking.report.monitor.enabled", false);
 pref("browser.contentblocking.report.proxy.enabled", false);
 pref("browser.contentblocking.report.proxy_extension.url", "", locked);
 pref("browser.contentblocking.report.show_mobile_app", false, locked);
@@ -119,7 +117,7 @@ pref("extensions.webcompat-reporter.enabled", false, locked);
 pref("media.gmp-gmpopenh264.autoupdate", false, locked);
 pref("signon.firefoxRelay.feature", "disabled", locked);
 
-// Reduces the CLRite base refresh period in the lack of a persistent
+// Reduces the CRLite base refresh period in the lack of a persistent
 // background push service
 pref("security.OCSP.enabled", 0, locked);
 pref("security.pki.crlite_mode", 2, locked);
@@ -131,7 +129,6 @@ pref("media.ffmpeg.allow-openh264", false);
 pref("media.gmp-gmpopenh264.enabled", false);
 pref("media.gmp-gmpopenh264.provider.enabled", false);
 pref("media.gmp-gmpopenh264.visible", false);
-pref("media.webrtc.hw.h264.enabled", true);
 
 // Remove telemetry
 pref("browser.contentblocking.report.lockwise.enabled", false, locked);
@@ -142,24 +139,12 @@ pref("browser.newtabpage.activity-stream.showSponsored", false, locked);
 pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false, locked);
 pref("browser.newtabpage.activity-stream.telemetry", false, locked);
 pref("browser.newtabpage.activity-stream.telemetry.ut.events", false, locked);
-pref(
-	"browser.newtabpage.activity-stream.trendingSearch.blockedAds",
-	"",
-	locked,
-);
-pref(
-	"browser.newtabpage.activity-stream.trendingSearch.enabled",
-	false,
-	locked,
-);
+pref("browser.newtabpage.activity-stream.trendingSearch.blockedAds", "", locked);
+pref("browser.newtabpage.activity-stream.trendingSearch.enabled", false, locked);
 pref("browser.newtabpage.activity-stream.trendingSearch.variant", "", locked);
 pref("browser.ping-centre.telemetry", false, locked);
 pref("browser.search.serpEventTelemetryCategorization.enabled", false, locked);
-pref(
-	"browser.search.serpEventTelemetryCategorization.regionEnabled",
-	false,
-	locked,
-);
+pref("browser.search.serpEventTelemetryCategorization.regionEnabled", false, locked);
 pref("browser.search.update", false, locked);
 pref("browser.shopping.experience2023.enabled", false, locked);
 pref("browser.startup.homepage_override.mstone", "ignore", locked);
