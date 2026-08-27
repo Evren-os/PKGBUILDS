@@ -1,7 +1,7 @@
 # Maintainer: Evren-os
 
 pkgname=brave-origin-beta
-pkgver=1.94.110
+pkgver=1.94.112
 pkgrel=1
 pkgdesc='The minimalist browser from the makers of Brave (beta release)'
 arch=(x86_64)
@@ -25,7 +25,7 @@ conflicts=(brave-origin-beta-bin)
 options=(!strip)
 
 _filename="${pkgname}-${pkgver}-linux-amd64.zip"
-_sha256zip='b67543eb694ab91d995bb22b9afef0c9ced7409e883a0de4d6af85201b32209d'
+_sha256zip='2cae8197d9c97dca925f778a97c3bb57991a73b1425152acae3b46cb0bbdfc62'
 
 source=(
     "${pkgname}.sh"
