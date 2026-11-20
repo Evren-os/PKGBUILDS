@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 pkgname='speedtest-go'
-pkgver='1.7.11'
+pkgver='1.8.2'
 pkgrel='1'
 pkgdesc='CLI and Go API to Test Internet Speed using speedtest.net'
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('go>=1.25')
 provides=("${pkgname}")
 conflicts=("${pkgname}")
 source=("${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('256ea7ce1b3ae1fec3158cad47d75ca67fe33ddd41cab5e2db028a4f0870f00f')
+sha256sums=('01c518f34eefbb6653a33538bb27daed4ef56318741b3d2d5412e9a3d81bed6e')
 
 prepare() {
   cd "${pkgname}-${pkgver}" || exit

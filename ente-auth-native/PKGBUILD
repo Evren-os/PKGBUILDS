@@ -1,7 +1,7 @@
 # Maintainer: Evrenos
 
 pkgname=ente-auth
-pkgver=4.4.25
+pkgver=4.4.26
 pkgrel=1
 pkgdesc='Two-factor authenticator with end-to-end encrypted backups'
 arch=('x86_64')
@@ -37,7 +37,7 @@ conflicts=(
 
 _tag="auth-v${pkgver}"
 _srcname="ente-${_tag}"
-_flutter_version='3.38.10'
+_flutter_version='3.47.8'
 _simple_icons_commit='6dcfdc2f58f6150d7b097b5cab158d27413f6366'
 
 source=(
@@ -45,9 +45,9 @@ source=(
   "simple-icons-${_simple_icons_commit}.tar.gz::https://github.com/simple-icons/simple-icons/archive/${_simple_icons_commit}.tar.gz"
   "flutter-linux-${_flutter_version}.tar.xz::https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${_flutter_version}-stable.tar.xz"
 )
-sha256sums=('71e95906f8a5ef0a8c54ad9595cae7e1d37abfe95f3c747e02a5540517692e15'
+sha256sums=('8c626521e7346b433de8867e863589116271cd430f0a6c5c2b3593febcb4df68'
             '901ba4889b0c983e28e68ee241f94801cb0179a16536c0ee5b158773385ace82'
-            '385e2629a0a585a835f351ca1605d2c7996377ce2fa16e68296e8fc9a78ccf7a')
+            'baf7dcc5a3dbba60fe863bf493a6cf203195621f7786eaa5a1bba02cd0d87dd2')
 
 prepare() {
   cd "$srcdir/${_srcname}"

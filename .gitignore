@@ -10,7 +10,6 @@ src/
 *.log
 *.pkg.tar.zst.old
 update.sh
+update-internal.sh
 opencode/
-t3code/
 darkly/
-kwin-effects-better-blur-dx/
