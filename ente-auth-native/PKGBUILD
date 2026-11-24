@@ -1,7 +1,7 @@
 # Maintainer: Evrenos
 
 pkgname=ente-auth
-pkgver=4.4.26
+pkgver=4.4.27
 pkgrel=1
 pkgdesc='Two-factor authenticator with end-to-end encrypted backups'
 arch=('x86_64')
@@ -22,6 +22,7 @@ makedepends=(
   'jdk17-openjdk'
   'ninja'
   'patchelf'
+  'rust'
 )
 checkdepends=(
   'appstream'
@@ -34,6 +35,7 @@ conflicts=(
   'ente-auth-bin'
   'ente-auth-git'
 )
+options=('!lto')
 
 _tag="auth-v${pkgver}"
 _srcname="ente-${_tag}"
@@ -45,7 +47,7 @@ source=(
   "simple-icons-${_simple_icons_commit}.tar.gz::https://github.com/simple-icons/simple-icons/archive/${_simple_icons_commit}.tar.gz"
   "flutter-linux-${_flutter_version}.tar.xz::https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${_flutter_version}-stable.tar.xz"
 )
-sha256sums=('8c626521e7346b433de8867e863589116271cd430f0a6c5c2b3593febcb4df68'
+sha256sums=('695c746f5f5577359bf6021697a9828d39a4507253fcbfcfeed326ab11227c65'
             '901ba4889b0c983e28e68ee241f94801cb0179a16536c0ee5b158773385ace82'
             'baf7dcc5a3dbba60fe863bf493a6cf203195621f7786eaa5a1bba02cd0d87dd2')
 
@@ -57,6 +59,7 @@ prepare() {
   cp -a "$srcdir/simple-icons-${_simple_icons_commit}/." \
     mobile/apps/auth/assets/simple-icons/
 
+  export CARGO_HOME="${CARGO_HOME:-$srcdir/cargo-home}"
   export FLUTTER_ROOT="$srcdir/flutter"
   export JAVA_HOME='/usr/lib/jvm/java-17-openjdk'
   export HOME="$srcdir/home"
@@ -65,7 +68,7 @@ prepare() {
   export PATH="$FLUTTER_ROOT/bin:$PUB_CACHE/bin:$PATH"
   export SOURCE_DATE_EPOCH="$(date -u -d '2026-03-30 00:00:00 UTC' +%s)"
 
-  install -d "$HOME" "$PUB_CACHE" "$XDG_CACHE_HOME"
+  install -d "$HOME" "$PUB_CACHE" "$XDG_CACHE_HOME" "$CARGO_HOME"
 
   flutter config --no-analytics --enable-linux-desktop
   dart --disable-analytics
@@ -76,6 +79,11 @@ prepare() {
   cd "$srcdir/${_srcname}/mobile/apps/auth"
   flutter clean
   flutter pub get --enforce-lockfile
+
+  (
+  cd "$srcdir/${_srcname}/rust"
+  cargo codegen frb auth
+  )
 
   sed -i 's#<id>enteauth</id>#<id>io.ente.auth.desktop</id>#' \
     linux/packaging/enteauth.appdata.xml
@@ -95,14 +103,40 @@ prepare() {
 build() {
   cd "$srcdir/${_srcname}/mobile/apps/auth"
 
+  export CARGO_HOME="${CARGO_HOME:-$srcdir/cargo-home}"
   export FLUTTER_ROOT="$srcdir/flutter"
   export JAVA_HOME='/usr/lib/jvm/java-17-openjdk'
   export HOME="$srcdir/home"
   export PUB_CACHE="$srcdir/pub-cache"
   export XDG_CACHE_HOME="$srcdir/cache"
-  export PATH="$FLUTTER_ROOT/bin:$PUB_CACHE/bin:$PATH"
   export SOURCE_DATE_EPOCH="$(date -u -d '2026-03-30 00:00:00 UTC' +%s)"
 
+  install -d "$srcdir/bin" "$CARGO_HOME"
+   cat <<'EOF' > "$srcdir/bin/rustup"
+#!/bin/sh
+case "$1" in
+  toolchain)
+    echo "stable (default)"
+    ;;
+  target)
+    echo "x86_64-unknown-linux-gnu"
+    ;;
+  run)
+    shift 2
+    exec "$@"
+    ;;
+  --version)
+    echo "rustup 1.29.0 (system)"
+    ;;
+  *)
+    echo "unsupported rustup shim invocation: $*" >&2
+    exit 1
+    ;;
+esac
+EOF
+   chmod +x "$srcdir/bin/rustup"
+
+  export PATH="$srcdir/bin:$FLUTTER_ROOT/bin:$PUB_CACHE/bin:$PATH"
   export CFLAGS="${CFLAGS//-march=native/}"
   export CFLAGS="${CFLAGS//-mtune=native/}"
   export CXXFLAGS="${CXXFLAGS//-march=native/}"
